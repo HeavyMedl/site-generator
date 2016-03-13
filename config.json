@@ -1,10 +1,49 @@
 {
-	"title" : "St Floor Wingate House",
-	"address" : {
-		"city" : "London",
-		"line1" : "93-107 Shaftesbury Ave",
-		"line2" : "",
-		"postal_code" : "W1D 5DY"
+	"header" : {
+		"brand" : "path/to/agency/img",
+		"carousel" : "path/to/carousel/imgs",
+		"latitude" : "",
+		"longitude" : ""
 	},
-	"description" : "Aenean quis sem nisi. Aliquam vehicula gravida orci, nec pretium mi ultricies in. Donec fermentum pulvinar mauris sed gravida. Pellentesque neque justo, commodo sed varius at, sagittis ut neque. In luctus pellentesque hendrerit. Vivamus congue laoreet urna, sed cursus odio scelerisque id. Curabitur volutpat pretium laoreet. Cras pulvinar vulputate porttitor. Ut sed lorem purus. Morbi posuere mauris odio, quis venenatis nisi viverra eu. Phasellus suscipit sem sapien. Phasellus risus purus, accumsan vel molestie vitae, sagittis sed massa. Sed elementum nisl tellus, at pharetra odio pharetra vel."
+	"body" : {
+		"title"	: "St Floor Wingate House",
+		"description" : "Aenean quis sem nisi. Aliquam vehicula gravida orci, nec pretium mi ultricies in. Donec fermentum pulvinar mauris sed gravida. Pellentesque neque justo, commodo sed varius at, sagittis ut neque. In luctus pellentesque hendrerit. Vivamus congue laoreet urna, sed cursus odio scelerisque id. Curabitur volutpat pretium laoreet. Cras pulvinar vulputate porttitor. Ut sed lorem purus. Morbi posuere mauris odio, quis venenatis nisi viverra eu. Phasellus suscipit sem sapien. Phasellus risus purus, accumsan vel molestie vitae, sagittis sed massa. Sed elementum nisl tellus, at pharetra odio pharetra vel.",
+		"address" : {
+			"city" : "London",
+			"line1" : "93-107 Shaftesbury Ave",
+			"line2" : "",
+			"postal_code" : "W1D 5DY",
+			"state"	: "WA"
+		},
+		"features" : {
+			"Air conditioning" : true,
+			"Hi-Fi" : true,
+			"Balcony" : true,
+			"Internet" : true,
+			"Beach" : true,
+			"Bedding" : true,
+			"Iron" : true,
+			"Coffee pot" : true,
+			"Parquet" : true,
+			"Balcony" : false
+		},
+		"imgs" : "path/to/imgs",
+		"video" : "path/to/video",
+		"side" : {
+			"price"	: 1000,
+			"type"	: "Apartment for rent",
+			"attributes" : {
+				"garage" : 1,
+				"bathroom" : 1,
+				"bedroom" : 3,
+				"square_footage" : 86,
+			},
+			"agent" : {
+				"name" : "Jason Satti",
+				"subtitle" : "Superhero Agent",
+				"img" : "path/to/agent/img"
+			}
+		}
+	},
+	"footer" : {}
 }
