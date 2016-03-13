@@ -36,7 +36,7 @@
 				"garage" : 1,
 				"bathroom" : 1,
 				"bedroom" : 3,
-				"square_footage" : 86,
+				"square_footage" : 86
 			},
 			"agent" : {
 				"name" : "Jason Satti",
