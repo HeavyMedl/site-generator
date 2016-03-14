@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 'use strict';
-const $ 		= require('./lib/log.js'),
-const args 		= process.argv.slice(2),
-const config 	= require(args.length > 0 ? args[0] 
-					: '../config.json');
+const path 	 = require('path');
+const $ 	 = require('./lib/log.js');
+const args 	 = process.argv.slice(2);
+const config = require(path.normalize(args.length > 0 
+					? args[0] : '../config.json'));
+const theme  = path.normalize('../themes/configured/'+config.theme);
 
-console.log(config.body.description);
+function build_data() {
+	let str = "";
+}

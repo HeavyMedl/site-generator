@@ -1,4 +1,5 @@
 {
+	"theme"	: "suburb",
 	"header" : {
 		"brand" : "path/to/agency/img",
 		"carousel" : "path/to/carousel/imgs",
