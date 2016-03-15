@@ -1,0 +1,23 @@
+{
+  "name": "site-generator",
+  "version": "1.0.0",
+  "description": "Generate static real property listing sites, hosted on github pages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/kurtlocker/site-generator.git"
+  },
+  "author": "kurtdmedley@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kurtlocker/site-generator/issues"
+  },
+  "homepage": "https://github.com/kurtlocker/site-generator",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "ncp": "^2.0.0"
+  }
+}

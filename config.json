@@ -1,5 +1,5 @@
 {
-	"theme"	: "suburb",
+	"theme"	: "./themes/configured/suburb",
 	"out"	: ".",
 	"header" : {
 		"brand" : "path/to/agency/img",
@@ -29,7 +29,7 @@
 			"Parquet" : true,
 			"Balcony" : false
 		},
-		"imgs" : "path/to/imgs",
+		"imgs" : "./imgs",
 		"video" : "path/to/video",
 		"side" : {
 			"price"	: 1000,
