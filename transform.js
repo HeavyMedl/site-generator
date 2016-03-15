@@ -53,9 +53,8 @@ function copy_configured_theme() {
 			console.trace(err.stack);
 			process.exit(1);
 		}
+		console.log(_script(script)+method(name)+desc('Done copying.'));
 	});
-
-	console.log(_script(script)+method(name)+desc('Done copying.'));
 }
 
 safe(copy_configured_theme)();
