@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 'use strict';
-const script = "transform.js";
 const path = require('path');
 const fs = require('fs');
 const wrench = require('wrench');
 const chalk = require('chalk');
-const args = process.argv.slice(2);
-const config = require(args.length > 0 ? args[0] : './config.json');
-const norm = path.normalize
-const source = norm(config.settings.theme);
-const dest = norm(`${config.settings.out}/${config.body.title}`);
+const config = require('./config.json');
+const norm = path.normalize;
+
+// paths used by script
+const theme_source = norm('./themes/configured/'+config.settings.theme);
+const theme_dest = norm(`${config.settings.out}/${config.body.title}`);
 
 // terminal color methods
+const script = "transform.js";
 const _script = chalk.cyan.bold.underline;
 const method = chalk.cyan;
 const desc = chalk.yellow;
@@ -31,9 +32,9 @@ function safe(fn) {
 function copy_configured_theme() {
 	const name = ' copy_configured_theme ';
 	console.log(_script(script)+method(name)+desc(
-			`Copying from ${source} to ${dest}`));
+			`Copying from ${theme_source} to ${theme_dest}`));
 
-	wrench.copyDirSyncRecursive(source, dest);
+	wrench.copyDirSyncRecursive(theme_source, theme_dest);
 	
 	console.log(_script(script)+method(name)+succ(
 		'Done copying.'));
@@ -41,10 +42,10 @@ function copy_configured_theme() {
 
 function copy_imgs() {
 	const name = ' copy_imgs ';
-	const src = norm(config.body.imgs);
-	const dst = norm(`${dest}/assets/img/imgs`);
+	const src = norm(config.settings.imgs_root);
+	const dst = norm(`${theme_dest}/assets/img/imgs`);
 	console.log(_script(script)+method(name)+desc(
-		`Copying from ${src} to ${dest}`));
+		`Copying from ${src} to ${theme_dest}`));
 	
 	wrench.copyDirSyncRecursive(src, dst);
 
@@ -59,14 +60,14 @@ function transform_data() {
 
 	let carousel = wrench.readdirSyncRecursive(
 			norm(config.header.carousel)),
-		all = wrench.readdirSyncRecursive(
-			norm(config.body.imgs));
+		property = wrench.readdirSyncRecursive(
+			norm(config.body.imgs))
 	
 	carousel = get_relative_paths(carousel, config.header.carousel);
-	all = get_relative_paths(all, config.body.imgs);
+	property = get_relative_paths(property, config.body.imgs);
 
 	config.header.carousel = carousel;
-	config.body.imgs = all;
+	config.body.imgs = property.concat(carousel);
 
 	console.log(_script(script)+method(name)+succ(
 		'Done configuring data.js object'));
@@ -95,7 +96,7 @@ function get_relative_paths(img_arr, path_config) {
 
 function write_data_js() {
 	const name = ' write_data_js ';
-	const _path = norm(`${dest}/assets/js/data.js`);
+	const _path = norm(`${theme_dest}/assets/js/data.js`);
 	console.log(_script(script)+method(name)+desc(
 			`Creating data.js at ${_path}`));
 

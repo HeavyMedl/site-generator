@@ -1,23 +1,28 @@
 {
 	"settings" : {
-		"theme"	: "./themes/configured/suburb",
-		"out"	: "."
+		"theme"	: "suburb",
+		"out" : ".",
+		"imgs_root" : "imgs",
+		"property_dir" : "property",
+		"carousel_dir" : "carousel",
+		"other_dir" : "other"
 	},
 	"header" : {
-		"brand" : "path/to/agency/img",
+		"agency_img" : "kw-logo.png",
+		"agency_site" : "http://tacoma.yourkwoffice.com/",
 		"carousel" : "./imgs/carousel",
 		"latitude" : "",
 		"longitude" : ""
 	},
 	"body" : {
 		"title"	: "St Floor Wingate House",
-		"description" : "Aenean quis sem nisi. Aliquam vehicula gravida orci, nec pretium mi ultricies in. Donec fermentum pulvinar mauris sed gravida. Pellentesque neque justo, commodo sed varius at, sagittis ut neque. In luctus pellentesque hendrerit. Vivamus congue laoreet urna, sed cursus odio scelerisque id. Curabitur volutpat pretium laoreet. Cras pulvinar vulputate porttitor. Ut sed lorem purus. Morbi posuere mauris odio, quis venenatis nisi viverra eu. Phasellus suscipit sem sapien. Phasellus risus purus, accumsan vel molestie vitae, sagittis sed massa. Sed elementum nisl tellus, at pharetra odio pharetra vel.",
+		"description" : "Watch the ferry come and go in this custom waterfront 2 story home with an enchanting Puget Sound and Mountain views. Artistic, well built, private 2 Bedroom and Den. Skylights, vaulted high ceilings, big windows maximize water views & natural light. Wood crafted spiral staircase to lower level southwestern style family room. Stucco Fireplace surround & terracotta. Beautiful wood deck recently added. Wood sided, metal roof for easy care. Private yard, sunny garden space, quality landscaping & shared beach access. Square Footage is 2,078 and lot is 22,651 SF. It is 2 bedroom plus den and 2 bathrooms.",
 		"address" : {
-			"city" : "London",
-			"line1" : "93-107 Shaftesbury Ave",
+			"line1" : "4425 Issaquah Pine Lake Rd SE",
 			"line2" : "",
-			"postal_code" : "W1D 5DY",
-			"state"	: "WA"
+			"city" : "Sammamish",
+			"state"	: "WA",
+			"postal_code" : "98075"
 		},
 		"features" : {
 			"Air conditioning" : true,
@@ -31,7 +36,7 @@
 			"Parquet" : true,
 			"Balcony" : false
 		},
-		"imgs" : "./imgs",
+		"imgs" : "./imgs/property",
 		"video" : "path/to/video",
 		"side" : {
 			"price"	: 1000,
@@ -43,8 +48,8 @@
 				"square_footage" : 86
 			},
 			"agent" : {
-				"name" : "Jason Satti",
-				"subtitle" : "Superhero Agent",
+				"name" : "Cambria Johnson",
+				"subtitle" : "Keller Williams Tacoma",
 				"img" : "path/to/agent/img"
 			}
 		}
