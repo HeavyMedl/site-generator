@@ -57,8 +57,7 @@ function transform_data() {
 	console.log(_script(script)+method(name)+desc(
 			'Configuring data.js object'));
 
-	let returnStr = "var data = ",
-		carousel = wrench.readdirSyncRecursive(
+	let carousel = wrench.readdirSyncRecursive(
 			norm(config.header.carousel)),
 		all = wrench.readdirSyncRecursive(
 			norm(config.body.imgs));
@@ -66,7 +65,9 @@ function transform_data() {
 	carousel = get_relative_paths(carousel, config.header.carousel);
 	all = get_relative_paths(all, config.body.imgs);
 
-	console.log(carousel);
+	config.header.carousel = carousel;
+	config.body.imgs = all;
+
 	console.log(_script(script)+method(name)+succ(
 		'Done configuring data.js object'));
 }
@@ -92,18 +93,20 @@ function get_relative_paths(img_arr, path_config) {
 	return imgs;
 }
 
-function write_data_js(data) {
-	// log this
-	// let _path = `${theme}/assets/js/data.js`;
-	let callback = safe(err => {
-		if (err) {
-			console.trace(err.stack);
-			process.exit(1);
-		}
-	});
-	fs.writeFile(_path, data, callback);
+function write_data_js() {
+	const name = ' write_data_js ';
+	const _path = norm(`${dest}/assets/js/data.js`);
+	console.log(_script(script)+method(name)+desc(
+			`Creating data.js at ${_path}`));
+
+	fs.writeFileSync(_path, 
+		';var data = '+JSON.stringify(config)+';');
+
+	console.log(_script(script)+method(name)+succ(
+		`data.js located at ${_path}`));
 }
 
 safe(copy_configured_theme)();
 safe(copy_imgs)();
 safe(transform_data)();
+safe(write_data_js)();
