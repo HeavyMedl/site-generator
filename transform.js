@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 'use strict';
 const script = "transform.js";
-const path 		= require('path');
-const fs 		= require('fs');
-const wrench 	= require('wrench');
-const chalk  	= require('chalk');
-const args 		= process.argv.slice(2);
-const config 	= require(args.length > 0 ? args[0] : './config.json');
-const norm 		= path.normalize
-const source 	= norm(config.theme);
-const dest 		= norm(`${config.out}/${config.body.title}`);
+const path = require('path');
+const fs = require('fs');
+const wrench = require('wrench');
+const chalk = require('chalk');
+const args = process.argv.slice(2);
+const config = require(args.length > 0 ? args[0] : './config.json');
+const norm = path.normalize
+const source = norm(config.settings.theme);
+const dest = norm(`${config.settings.out}/${config.body.title}`);
 
 // terminal color methods
 const _script = chalk.cyan.bold.underline;
@@ -28,6 +28,30 @@ function safe(fn) {
 	}
 }
 
+function copy_configured_theme() {
+	const name = ' copy_configured_theme ';
+	console.log(_script(script)+method(name)+desc(
+			`Copying from ${source} to ${dest}`));
+
+	wrench.copyDirSyncRecursive(source, dest);
+	
+	console.log(_script(script)+method(name)+succ(
+		'Done copying.'));
+}
+
+function copy_imgs() {
+	const name = ' copy_imgs ';
+	const src = norm(config.body.imgs);
+	const dst = norm(`${dest}/assets/img/imgs`);
+	console.log(_script(script)+method(name)+desc(
+		`Copying from ${src} to ${dest}`));
+	
+	wrench.copyDirSyncRecursive(src, dst);
+
+	console.log(_script(script)+method(name)+succ(
+		'Done copying.'));		
+}
+
 function transform_data() {
 	const name = ' transform_data ';
 	console.log(_script(script)+method(name)+desc(
@@ -39,9 +63,10 @@ function transform_data() {
 		all = wrench.readdirSyncRecursive(
 			norm(config.body.imgs));
 	
-	get_relative_paths(carousel, config.header.carousel);
-	get_relative_paths(all, config.body.imgs);
+	carousel = get_relative_paths(carousel, config.header.carousel);
+	all = get_relative_paths(all, config.body.imgs);
 
+	console.log(carousel);
 	console.log(_script(script)+method(name)+succ(
 		'Done configuring data.js object'));
 }
@@ -57,7 +82,7 @@ function get_relative_paths(img_arr, path_config) {
 		if (info.isFile() && (path.extname(img) == '.jpg'||
 			path.extname(img)== '.png')) {
 			imgs.push(
-				norm(`/assets/img/imgs/${img.replace(/\s/g, "%20")}`)
+				norm(`assets/img/${path_config}/${img.replace(/\s/g, "%20")}`)
 			);
 		}
 	});
@@ -79,16 +104,6 @@ function write_data_js(data) {
 	fs.writeFile(_path, data, callback);
 }
 
-function copy_configured_theme() {
-	const name = ' copy_configured_theme ';
-	console.log(_script(script)+method(name)+desc(
-			`Copying from ${source} to ${dest}`));
-
-	wrench.copyDirSyncRecursive(source, dest);
-	
-	console.log(_script(script)+method(name)+succ(
-		'Done copying.'));
-}
-
 safe(copy_configured_theme)();
+safe(copy_imgs)();
 safe(transform_data)();

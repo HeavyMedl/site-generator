@@ -1,6 +1,8 @@
 {
-	"theme"	: "./themes/configured/suburb",
-	"out"	: ".",
+	"settings" : {
+		"theme"	: "./themes/configured/suburb",
+		"out"	: "."
+	},
 	"header" : {
 		"brand" : "path/to/agency/img",
 		"carousel" : "./imgs/carousel",
