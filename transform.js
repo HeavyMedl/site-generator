@@ -10,6 +10,11 @@ const norm = path.normalize;
 // paths used by script
 const theme_source = norm('./themes/configured/'+config.settings.theme);
 const theme_dest = norm(`${config.settings.out}/${config.body.title}`);
+const src_imgs = norm(config.settings.imgs_root);
+const dst_imgs = norm(`${theme_dest}/${config.settings.theme_assets}/${config.settings.theme_imgs}/${src_imgs}`);
+const dst_js = norm(`${theme_dest}/${config.settings.theme_assets}/${config.settings.theme_js}/`);
+const prop_imgs = norm(`${src_imgs}/${config.settings.property_dir}`);
+const car_imgs = norm(`${src_imgs}/${config.settings.carousel_dir}`);
 
 // terminal color methods
 const script = "transform.js";
@@ -42,12 +47,10 @@ function copy_configured_theme() {
 
 function copy_imgs() {
 	const name = ' copy_imgs ';
-	const src = norm(config.settings.imgs_root);
-	const dst = norm(`${theme_dest}/assets/img/imgs`);
 	console.log(_script(script)+method(name)+desc(
-		`Copying from ${src} to ${theme_dest}`));
+		`Copying from ${src_imgs} to ${dst_imgs}`));
 	
-	wrench.copyDirSyncRecursive(src, dst);
+	wrench.copyDirSyncRecursive(src_imgs, dst_imgs);
 
 	console.log(_script(script)+method(name)+succ(
 		'Done copying.'));		
@@ -58,45 +61,40 @@ function transform_data() {
 	console.log(_script(script)+method(name)+desc(
 			'Configuring data.js object'));
 
-	let carousel = wrench.readdirSyncRecursive(
-			norm(config.header.carousel)),
-		property = wrench.readdirSyncRecursive(
-			norm(config.body.imgs))
+	let carousel = wrench.readdirSyncRecursive(car_imgs),
+		property = wrench.readdirSyncRecursive(prop_imgs)
 	
-	carousel = get_relative_paths(carousel, config.header.carousel);
-	property = get_relative_paths(property, config.body.imgs);
+	carousel = get_images(carousel, car_imgs);
+	property = get_images(property, prop_imgs);
 
-	config.header.carousel = carousel;
-	config.body.imgs = property.concat(carousel);
+	config.settings.carousel_imgs = carousel;
+	config.settings.property_imgs = property.concat(carousel);
 
 	console.log(_script(script)+method(name)+succ(
 		'Done configuring data.js object'));
 }
 
-function get_relative_paths(img_arr, path_config) {
-	const name = ' get_relative_paths ';
+function get_images(img_arr, path_config) {
+	const name = ' get_images ';
 	console.log(_script(script)+method(name)+desc(
-			'Building list of relative paths'));
-
+			'Building array of images'));
 	let imgs = [];
 	img_arr.forEach(img => {
 		let info = fs.statSync(norm(`${path_config}/${img}`));
 		if (info.isFile() && (path.extname(img) == '.jpg'||
 			path.extname(img)== '.png')) {
-			imgs.push(
-				norm(`assets/img/${path_config}/${img.replace(/\s/g, "%20")}`)
-			);
+			imgs.push(img.replace(/\s/g, "%20"));
 		}
 	});
 
 	console.log(_script(script)+method(name)+succ(
-		'Done building list of relative paths'));
+		'Done building array of images'));
 	return imgs;
 }
 
 function write_data_js() {
 	const name = ' write_data_js ';
-	const _path = norm(`${theme_dest}/assets/js/data.js`);
+	const _path = norm(`${dst_js}/data.js`);
 	console.log(_script(script)+method(name)+desc(
 			`Creating data.js at ${_path}`));
 
