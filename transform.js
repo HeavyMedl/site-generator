@@ -34,6 +34,42 @@ function safe(fn) {
 	}
 }
 
+function build_test() {
+	const spawn = require('child_process').spawn;
+	const esc_dest = theme_dest.replace(/(["\s'$`\\])/g,'\\$1');
+	run();
+	spawn('sh', ['-c', 
+		`cd ${esc_dest} && python3 -m http.server 8888`], 
+		{ stdio: 'inherit' });
+	console.log(
+		chalk.bgYellow(`Serving ${theme_dest} @ 127.0.0.1:8888`));
+}
+
+function deleteFolderRecursive(path) {
+	if(fs.existsSync(path)) {
+		fs.readdirSync(path).forEach(function(file,index){
+			var curPath = path + "/" + file;
+			if(fs.lstatSync(curPath).isDirectory()) { // recurse
+				deleteFolderRecursive(curPath);
+			} else { // delete file
+				fs.unlinkSync(curPath);
+			}
+		});
+		fs.rmdirSync(path);
+	}
+};
+
+function clean_up() {
+	const name = ' clean_up ';
+	console.log(_script(script)+method(name)+desc(
+		`If ${theme_dest} exists, removing for fresh build`));
+
+	deleteFolderRecursive(theme_dest);
+
+	console.log(_script(script)+method(name)+succ(
+		'Done with clean up'));	
+}
+
 function copy_configured_theme() {
 	const name = ' copy_configured_theme ';
 	console.log(_script(script)+method(name)+desc(
@@ -53,7 +89,7 @@ function copy_imgs() {
 	wrench.copyDirSyncRecursive(src_imgs, dst_imgs);
 
 	console.log(_script(script)+method(name)+succ(
-		'Done copying.'));		
+		'Done copying'));		
 }
 
 function transform_data() {
@@ -105,7 +141,14 @@ function write_data_js() {
 		`data.js located at ${_path}`));
 }
 
-safe(copy_configured_theme)();
-safe(copy_imgs)();
-safe(transform_data)();
-safe(write_data_js)();
+function run() {
+	safe(clean_up)();
+	safe(copy_configured_theme)();
+	safe(copy_imgs)();
+	safe(transform_data)();
+	safe(write_data_js)();
+}
+
+process.argv.slice(2)[0] == 'test'
+	? build_test()
+	: run()

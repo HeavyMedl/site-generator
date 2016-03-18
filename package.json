@@ -4,7 +4,8 @@
   "description": "Generate static real property listing sites, hosted on github pages",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./transform.js test"
   },
   "repository": {
     "type": "git",
