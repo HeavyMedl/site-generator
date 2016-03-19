@@ -41,10 +41,10 @@
 		"video" : "path/to/video",
 		"side" : {
 			"price"	: 1000000,
-			"type"	: "HOUSE FOR SALE",
+			"type"	: "House for sale",
 			"attributes" : {
 				"garage" : 1,
-				"bathroom" : 1,
+				"bathroom" : 6,
 				"bedroom" : 3,
 				"square_footage" : 4500
 			},
