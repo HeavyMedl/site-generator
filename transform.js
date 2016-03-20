@@ -104,7 +104,7 @@ function transform_data() {
 	property = get_images(property, prop_imgs);
 
 	config.settings.carousel_imgs = carousel;
-	config.settings.property_imgs = property.concat(carousel);
+	config.settings.property_imgs = property;
 
 	console.log(_script(script)+method(name)+succ(
 		'Done configuring data.js object'));
